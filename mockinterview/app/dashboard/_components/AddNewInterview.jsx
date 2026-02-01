@@ -196,59 +196,79 @@ const AddNewInterview = () => {
   return (
     <div>
       <div
-        className="p-10 rounded-lg border bg-secondary hover:scale-105 hover:shadow-sm transition-all cursor-pointer"
+        className="group relative p-10 rounded-xl border-2 border-dashed border-border/50 bg-gradient-to-br from-background to-accent/30 hover:scale-105 hover:shadow-xl transition-all cursor-pointer overflow-hidden animate-scale-in"
         onClick={() => setOpenDialog(true)}
       >
-        <h2 className=" text-lg text-center">+ Add New</h2>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div className="relative flex flex-col items-center gap-3">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+            +
+          </div>
+          <h2 className="text-lg font-semibold gradient-text">Add New Interview</h2>
+          <p className="text-sm text-muted-foreground">Create a new mock interview</p>
+        </div>
       </div>
       <Dialog open={openDailog}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto glass border-2 shadow-2xl">
           <DialogHeader>
-            <DialogTitle className="text-2xl">
+            <DialogTitle className="text-3xl font-bold gradient-text">
               Tell us more about your job interviewing
             </DialogTitle>
             <DialogDescription>
               <form onSubmit={onSubmit}>
                 <div className="my-3">
-                  <h2>
+                  <h2 className="text-base text-muted-foreground">
                     Add Details about your job position, job description and
                     years of experience
                   </h2>
 
                   {/* Interview Type Selection */}
                   <div className="mt-7 my-5">
-                    <label className="text-black font-semibold block mb-3">
+                    <label className="text-foreground font-semibold block mb-3">
                       Interview Type
                     </label>
                     <div className="grid grid-cols-2 gap-4">
                       <button
                         type="button"
                         onClick={() => setInterviewType("technical")}
-                        className={`p-4 rounded-lg border-2 transition ${
+                        className={`group p-5 rounded-xl border-2 transition-all hover:scale-[1.02] ${
                           interviewType === "technical"
-                            ? "border-blue-600 bg-blue-50"
-                            : "border-gray-300 bg-white hover:border-gray-400"
+                            ? "border-blue-500 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 shadow-lg"
+                            : "border-border bg-card hover:border-blue-300 hover:shadow-md"
                         }`}
                       >
-                        <p className="font-semibold text-sm">Technical</p>
-                        <p className="text-xs text-gray-600">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                            interviewType === "technical" ? "bg-blue-500" : "bg-muted"
+                          }`}>
+                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                          </div>
+                          <p className="font-semibold">Technical</p>
+                        </div>
+                        <p className="text-xs text-muted-foreground text-left">
                           Questions on skills & tech stack
                         </p>
                       </button>
                       <button
                         type="button"
                         onClick={() => setInterviewType("behavioral")}
-                        className={`p-4 rounded-lg border-2 transition flex flex-col items-start ${
+                        className={`group p-5 rounded-xl border-2 transition-all hover:scale-[1.02] flex flex-col items-start ${
                           interviewType === "behavioral"
-                            ? "border-purple-600 bg-purple-50"
-                            : "border-gray-300 bg-white hover:border-gray-400"
+                            ? "border-purple-500 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900 shadow-lg"
+                            : "border-border bg-card hover:border-purple-300 hover:shadow-md"
                         }`}
                       >
-                        <div className="flex items-center gap-2">
-                          <Video className="w-4 h-4" />
-                          <p className="font-semibold text-sm">Behavioral</p>
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                            interviewType === "behavioral" ? "bg-purple-500" : "bg-muted"
+                          }`}>
+                            <Video className="w-5 h-5 text-white" />
+                          </div>
+                          <p className="font-semibold">Behavioral</p>
                         </div>
-                        <p className="text-xs text-gray-600">
+                        <p className="text-xs text-muted-foreground">
                           One-on-one with video analysis
                         </p>
                       </button>
@@ -256,29 +276,29 @@ const AddNewInterview = () => {
                   </div>
 
                   <div className="mt-7 my-3">
-                    <label className="text-black">Job Role/job Position</label>
+                    <label className="text-foreground font-medium block mb-2">Job Role/Job Position</label>
                     <Input
-                      className="mt-1"
-                      placeholder="Ex. Full stack Developer"
+                      className="mt-1 bg-input-background border-border focus:border-blue-500 transition-colors"
+                      placeholder="Ex. Full Stack Developer"
                       required
                       onChange={(e) => setJobPosition(e.target.value)}
                     />
                   </div>
                   <div className="my-5">
-                    <label className="text-black">
-                      Job Description/ Tech stack (In Short)
+                    <label className="text-foreground font-medium block mb-2">
+                      Job Description/ Tech Stack (In Short)
                     </label>
                     <Textarea
-                      className="placeholder-opacity-50"
-                      placeholder="Ex. React, Angular, Nodejs, Mysql, Nosql, Python"
+                      className="bg-input-background border-border focus:border-blue-500 transition-colors placeholder-opacity-50"
+                      placeholder="Ex. React, Angular, Node.js, MySQL, NoSQL, Python"
                       required
                       onChange={(e) => setJobDesc(e.target.value)}
                     />
                   </div>
                   <div className="my-5">
-                    <label className="text-black">Years of Experience</label>
+                    <label className="text-foreground font-medium block mb-2">Years of Experience</label>
                     <Input
-                      className="mt-1"
+                      className="mt-1 bg-input-background border-border focus:border-blue-500 transition-colors"
                       placeholder="Ex. 5"
                       max="50"
                       type="number"
@@ -288,34 +308,36 @@ const AddNewInterview = () => {
                   </div>
 
                   <div className="my-5">
-                    <label className="text-black block mb-2 font-medium">
+                    <label className="text-foreground font-medium block mb-2">
                       📄 Upload Resume (Optional - PDF only)
                     </label>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-blue-400 transition">
+                    <div className="border-2 border-dashed border-border rounded-xl p-6 hover:border-blue-400 hover:bg-accent/30 transition-all bg-card/50">
                       <Input
                         type="file"
                         accept=".pdf"
-                        className="cursor-pointer"
+                        className="cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-gradient-to-r file:from-blue-500 file:to-purple-600 file:text-white file:font-medium hover:file:from-blue-600 hover:file:to-purple-700 file:transition-all"
                         onChange={handleResumeUpload}
                         id="resume-upload"
                       />
                       {resumeFile && (
-                        <div className="mt-2 text-sm text-green-600 flex items-center gap-2 bg-green-50 p-2 rounded">
-                          <FileText className="w-4 h-4" />
-                          <span className="font-medium">{resumeFile.name}</span>
-                          <span className="text-xs">({(resumeFile.size / 1024).toFixed(0)} KB)</span>
+                        <div className="mt-3 text-sm flex items-center gap-2 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950 p-3 rounded-lg border border-green-200 dark:border-green-800 animate-scale-in">
+                          <FileText className="w-5 h-5 text-green-600" />
+                          <div className="flex-1">
+                            <span className="font-medium text-green-700 dark:text-green-400">{resumeFile.name}</span>
+                            <span className="text-xs text-green-600 dark:text-green-500 ml-2">({(resumeFile.size / 1024).toFixed(0)} KB)</span>
+                          </div>
                         </div>
                       )}
                     </div>
-                    <p className="text-xs text-gray-500 mt-2 flex items-center gap-1">
+                    <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
                       <Upload className="w-3 h-3" />
                       Upload your resume to get personalized questions based on your experience
                     </p>
                   </div>
 
                   {interviewType === "behavioral" && (
-                    <div className="mt-4 p-3 bg-purple-50 border border-purple-200 rounded-lg text-sm">
-                      <p className="text-purple-900">
+                    <div className="mt-4 p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 border-2 border-purple-200 dark:border-purple-800 rounded-xl text-sm animate-scale-in">
+                      <p className="text-purple-900 dark:text-purple-100">
                         <strong>💡 Tip:</strong> Behavioral interviews assess soft
                         skills with video analysis. You&apos;ll be asked situational
                         questions where we analyze your communication, confidence,
@@ -324,10 +346,11 @@ const AddNewInterview = () => {
                     </div>
                   )}
                 </div>
-                <div className="flex gap-5 justify-end">
+                <div className="flex gap-4 justify-end mt-6 pt-4 border-t border-border">
                   <Button
                     type="button"
                     variant="outline"
+                    className="px-6 hover:bg-accent/50 transition-all"
                     onClick={() => {
                       setOpenDialog(false);
                       setInterviewType("technical");
@@ -335,14 +358,23 @@ const AddNewInterview = () => {
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" disabled={loading}>
+                  <Button 
+                    type="submit" 
+                    disabled={loading}
+                    className="px-8 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
                     {loading ? (
                       <>
-                        <LoaderCircle className="animate-spin" />
+                        <LoaderCircle className="animate-spin mr-2" />
                         Generating From AI
                       </>
                     ) : (
-                      "Start Interview"
+                      <>
+                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        Start Interview
+                      </>
                     )}
                   </Button>
                 </div>
