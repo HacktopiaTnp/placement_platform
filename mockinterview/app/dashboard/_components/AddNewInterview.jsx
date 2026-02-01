@@ -63,16 +63,19 @@ const AddNewInterview = () => {
       });
 
       const data = await response.json();
+      console.log("API Response:", data);
+      
       if (data.success) {
         setResumeText(data.text);
         console.log("Resume parsed successfully");
         toast.success("Resume uploaded and parsed successfully!", { id: "resume-upload" });
       } else {
-        toast.error("Failed to parse resume", { id: "resume-upload" });
+        console.error("Parse failed:", data.error);
+        toast.error(data.error || "Failed to parse resume", { id: "resume-upload" });
       }
     } catch (error) {
       console.error("Error parsing resume:", error);
-      toast.error("Error uploading resume", { id: "resume-upload" });
+      toast.error("Error uploading resume: " + error.message, { id: "resume-upload" });
     }
   };
 
